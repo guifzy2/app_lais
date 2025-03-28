@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Sobrevivência</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="music-player" src="musicas/Allie X - That's So Us (Official Audio).mp3"></audio>
+    <audio id="music-player" src="musicas/20191009 I Like Her.mp3"></audio>
+
+    <div class="falling-leaves"></div>
+
+    <h1 class="title">Como não deixar minha mulher louca</h1>
+
+    <div class="button-container">
+        <a href="index.html" class="button">Início</a>
+    </div>
+
+    <!-- Container do Manual -->
+    <div class="manual-container">
+        <h2>Adicione Aqui as Regras e Dicas Essenciais ( pesquisa importante )</h2>
+        <ul id="manual-list"></ul>
+
+        <!-- Adicionar uma nova dica -->
+        <div class="add-manual-form">
+            <input type="text" id="manual-text" placeholder="Adicione uma nova regra ou dica...">
+            <button id="add-manual-button">Adicionar</button>
+        </div>
+    </div>
+
+    <div class="music-bar">
+        <button class="play-button">▶</button>
+        <span>Nome da música atual</span>
+    </div>
+    <button class="troca-msc-button">Trocar música</button>
+
+    <!-- Importando o script para animação das folhas -->
+    <script src="script.js"></script>
+
+    <script src="manual.js"></script>
+</body>
+</html>

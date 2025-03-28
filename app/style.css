@@ -1,0 +1,605 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+
+
+body {
+    background-color: #F8D9E0;
+    text-align: center;
+    font-family: 'Jersey 10', sans-serif;
+    color: #C75D94;
+    margin: 0;
+    padding: 10px;
+    font-size: 24px;
+    justify-content: center;
+    overflow-y: auto; /* Permite rolagem vertical */
+    min-height: 50vh; /* Garante que o conteúdo possa crescer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Contêiner para folhas/flores animadas */
+.falling-leaves {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1; /* Para ficar atrás dos botões e textos */
+    overflow: hidden;
+}
+
+.leaf {
+    position: absolute;
+    width: 40px; /* Aumentado para melhor visibilidade */
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+/* Adicionando animação */
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/*pagina saudade*/
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre os elementos */
+}
+
+.memory-photo {
+    width: 80%;
+    max-width: 500px; /* Garante um tamanho adequado */
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.caption {
+    font-size: 30px;
+    color: #C75D94;
+    font-weight: bold;
+    text-align: center;
+    max-width: 80%;
+}
+
+.counter {
+    font-size: 20px;
+    color: #C75D94;
+    font-weight: bold;
+}
+
+#change-photo-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 20px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#change-photo-button:hover {
+    background-color: #F2BBCF;
+}
+
+/*pag romantico*/
+#change-phrase-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 20px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#change-phrase-button:hover {
+    background-color: #F2BBCF;
+}
+
+/*pag chek list*/
+.checklist-container {
+    width: 80%;
+    max-width: 600px;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Adiciona rolagem interna se necessário */
+    max-height: 70vh; /* Define um limite para a altura da checklist */
+}
+
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #E8AEB7;
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+}
+
+/* Permite que novos itens da checklist apareçam corretamente */
+.add-task-container {
+    margin-top: 20px;
+}
+
+#new-item {
+    width: 70%;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #E8AEB7;
+    border-radius: 10px;
+}
+
+#add-item-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+/*pag mencoes*/
+
+.rating-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rating-container input {
+    display: none; /* Esconde os inputs, mantendo só os botões visíveis */
+}
+
+.rating-container label {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s;
+    font-size: 18px;
+    text-align: center;
+}
+
+.rating-container input:checked + label {
+    background-color: #D0608D; /* Cor mais escura */
+    color: white;
+    font-weight: bold;
+}
+
+textarea {
+    width: 80%;
+    max-width: 400px;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+#salvar-mencao, #limpar-mencoes {
+    background-color: #C75D94;
+    color: white;
+    font-size: 20px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+#salvar-mencao:hover, #limpar-mencoes:hover {
+    background-color: #A04776;
+}
+
+#historico-mencoes {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#historico-mencoes li {
+    background-color: #F0B6C1;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-button, .delete-button {
+    background-color: #A04776;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-button {
+    background-color: #E63946;
+}
+
+/*pag time line*/
+
+.month-selector {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#open-months-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 22px;
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#open-months-button:hover {
+    background-color: #D88A9C;
+}
+
+/* Estiliza o menu suspenso dos meses */
+.month-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.month-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.month-button:hover {
+    background-color: #D88A9C;
+}
+
+.month-button.selected {
+    background-color: #C75D94;
+    color: white;
+}
+
+/* Estiliza a área dos eventos */
+.eventos-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+
+.event-image {
+    width: 100%; /* Ajusta a largura automaticamente */
+    max-width: 250px; /* Define um limite máximo para a largura */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 10px; /* Adiciona cantos arredondados para um visual mais bonito */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* Efeito de sombra sutil */
+    margin: 10px 0;
+}
+
+
+#event-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-item {
+    background: #F8D9E0;
+    color: #C75D94;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete-event {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #C75D94;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.delete-event:hover {
+    color: #A34770;
+}
+
+/* Estiliza o botão de adicionar evento */
+#add-event-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+#add-event-button:hover {
+    background-color: #D88A9C;
+}
+
+/*pag recordes*/
+
+.records-container {
+    max-width: 400px;
+    background: #FFF0F6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.records-container h2 {
+    color: #C75D94;
+}
+
+#record-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+#record-list li {
+    background: #FFC0CB;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-record-form {
+    margin-top: 15px;
+}
+
+.add-record-form input {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #C75D94;
+}
+
+#add-record-button {
+    background: #C75D94;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-record {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/*pag sobrevivencia*/
+
+.manual-container {
+    max-width: 400px;
+    background: #FFF0F6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.manual-container h2 {
+    color: #C75D94;
+}
+
+#manual-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+#manual-list li {
+    background: #FFC0CB;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-manual-form {
+    margin-top: 15px;
+}
+
+.add-manual-form input {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #C75D94;
+}
+
+#add-manual-button {
+    background: #C75D94;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-manual {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/*pag inicial*/
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    gap: 50px;
+    width: 80%; /* Ajusta para preencher mais a tela */
+    max-width: 1200px; /* Garante um limite para telas grandes */
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button {
+    display: flex; /* Para alinhar o texto corretamente */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 15px;
+    width: 200px; /* Garante que o tamanho seja igual ao botão original */
+    height: 40px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+/* Transforma o <a> em bloco para ocupar o mesmo tamanho do botão */
+.button a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none; /* Remove sublinhado */
+    color: inherit; /* Mantém a cor do texto */
+}
+
+.troca-msc-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 24px;
+    padding: 20px 40px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    width: 300px; /* Aumenta a largura dos botões */
+    height: 80px; /* Aumenta a altura dos botões */
+    text-align: center;
+}
+
+.music-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha elementos horizontalmente */
+    font-size: 24px;
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    gap: 20px; /* Ajusta o espaçamento entre o botão e o texto */
+    white-space: nowrap; /* Evita quebra de linha no texto */
+    flex-direction: row; /* Garante que os elementos fiquem lado a lado */
+}
+
+.play-button {
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 24px;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0; /* Evita que o botão encolha */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.troca-msc-button {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    font-size: 24px;
+    width: 250px;
+    height: 80px;
+}

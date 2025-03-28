@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo da Laís</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="music-player" src="musicas/Allie X - That's So Us (Official Audio).mp3"></audio>
+    <audio id="music-player" src="musicas/20191009 I Like Her.mp3"></audio>
+    <div class="falling-leaves"></div>
+
+    <h1 class="title">Aplicativo da Laís</h1>
+    <div class="button-container">
+        <div class="button-column left">
+            <a href="saudades.html" class="button">Saudade</a>
+            <a href="romantico.html" class="button">Último Romântico</a>
+            <a href="timeline.html" class="button">Linha do Tempo</a>
+            <a href="manual.html" class="button">Sobrevivência</a>
+        </div>
+        <div class="button-column right">
+            <a href="checklist.html" class="button">Check List</a>
+            <a href="mencoes.html" class="button">Menções</a>
+            <a href="records.html" class="button">Recordes</a>
+        </div>
+    </div>
+    <div class="music-bar">
+        <button class="play-button">▶</button>
+        <span>Nome da música atual</span>
+    </div>
+    <button class="troca-msc-button">Trocar música</button>
+
+    <!-- Importando o script para animação das folhas -->
+    <script src="script.js"></script>
+</body>
+</html>
