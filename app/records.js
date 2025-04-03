@@ -1,52 +1,64 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const recordList = document.getElementById("record-list");
-    const addRecordButton = document.getElementById("add-record-button");
-    const recordTitleInput = document.getElementById("record-title");
-    const recordHolderInput = document.getElementById("record-holder");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // Carregar recordes salvos no localStorage
-    const records = JSON.parse(localStorage.getItem("records")) || [
-        { title: "O mais foda, sigma, dna lobsomen, folósofo e catedrático", holder: "Guilherme" },
-        { title: "A mulher mais bonita que os olhos do Guilherme já viram", holder: "Láis" },
-        { title: "O maior odiador de loiras do cerrado", holder: "Guilherme" }
-    ];
+const firebaseConfig = {
+    apiKey: "AIzaSyA9BZ-upgmv7DcMK0n0CtgSUnXq1Mwv6Lk",
+    authDomain: "app-lais.firebaseapp.com",
+    projectId: "app-lais",
+    storageBucket: "app-lais.appspot.com",
+    messagingSenderId: "96310588542",
+    appId: "1:96310588542:web:b7ce83de88990570fd542f"
+};
 
-    function saveRecords() {
-        localStorage.setItem("records", JSON.stringify(records));
-    }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    function renderRecords() {
-        recordList.innerHTML = "";
-        records.forEach((record, index) => {
-            const li = document.createElement("li");
-            li.innerHTML = `<strong>${record.title}:</strong> ${record.holder} 
-                            <button class="delete-record" data-index="${index}">❌</button>`;
-            recordList.appendChild(li);
-        });
+const recordList = document.getElementById("record-list");
+const addRecordButton = document.getElementById("add-record-button");
+const recordTitleInput = document.getElementById("record-title");
+const recordHolderInput = document.getElementById("record-holder");
 
-        // Adiciona funcionalidade para excluir recordes
-        document.querySelectorAll(".delete-record").forEach(button => {
-            button.addEventListener("click", function () {
-                const index = this.getAttribute("data-index");
-                records.splice(index, 1);
-                saveRecords();
-                renderRecords();
-            });
-        });
-    }
-
-    addRecordButton.addEventListener("click", function () {
-        const title = recordTitleInput.value.trim();
-        const holder = recordHolderInput.value.trim();
-
-        if (title && holder) {
-            records.push({ title, holder });
-            saveRecords();
-            renderRecords();
-            recordTitleInput.value = "";
-            recordHolderInput.value = "";
-        }
+async function loadRecords() {
+    recordList.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "records"));
+    
+    querySnapshot.forEach(doc => {
+        const record = doc.data();
+        addRecordToList(record.title, record.holder, doc.id);
     });
+}
 
-    renderRecords();
+function addRecordToList(title, holder, id) {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${title}:</strong> ${holder} 
+                    <button class="delete-record" data-id="${id}">❌</button>`;
+    recordList.appendChild(li);
+
+    // Adiciona evento de exclusão
+    li.querySelector(".delete-record").addEventListener("click", async function () {
+        const recordId = this.getAttribute("data-id");
+        await deleteDoc(doc(db, "records", recordId));
+        loadRecords(); // Atualiza a lista após exclusão
+    });
+}
+
+addRecordButton.addEventListener("click", async () => {
+    const title = recordTitleInput.value.trim();
+    const holder = recordHolderInput.value.trim();
+
+    if (!title || !holder) {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    try {
+        const docRef = await addDoc(collection(db, "records"), { title, holder });
+        addRecordToList(title, holder, docRef.id);
+        recordTitleInput.value = "";
+        recordHolderInput.value = "";
+    } catch (error) {
+        console.error("Erro ao adicionar recorde:", error);
+    }
 });
+
+loadRecords();

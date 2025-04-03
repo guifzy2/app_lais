@@ -14,12 +14,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Configuração da API do Google Drive
-const CLIENT_ID = "1073763696124-lq84dn5u61qmdmqhhn11k49huukdi32h.apps.googleusercontent.com";
-const FOLDER_ID = "1QYRojkAr9Vh0ufyc4WAaAk6JJzr9w5Kv";  // Substitua pelo ID da sua pasta no Google Drive
-const API_KEY = "AIzaSyAP7jIBI420R_F5xglvc6wIdilxb7VmY8w";    // Substitua pela sua chave de API
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-const SCOPES = "https://www.googleapis.com/auth/drive.file";
+// Chave da API do ImgBB (Pegue a sua em https://api.imgbb.com/)
+const IMGBB_API_KEY = "9e78b56bf6391a68ce275165fa38e99d";
 
 // Elementos do DOM
 const openMonthsButton = document.getElementById("open-months-button");
@@ -49,66 +45,24 @@ const events = {
     ]
 };
 
-// Inicializar API do Google
-gapi.load("client:auth2", () => {
-    gapi.auth2.init({ client_id: CLIENT_ID }).then(() => {
-        console.log("Google API carregada com sucesso!");
-    }).catch(err => console.error("Erro ao carregar API:", err));
-});
+// Função para fazer upload no ImgBB
+async function uploadToImgBB(file) {
+    const formData = new FormData();
+    formData.append("image", file);
 
-// Autenticar usuário
-function authenticate() {
-    return gapi.auth2.getAuthInstance().signIn({ scope: SCOPES });
-}
-
-// Carregar API do Google Drive
-function loadClient() {
-    gapi.client.setApiKey(API_KEY);
-    return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/drive/v3/rest");
-}
-
-// **Função para fazer upload no Google Drive para uma pasta específica**
-async function uploadToGoogleDrive(file) {
     try {
-        await authenticate(); // Autentica o usuário
-        
-        let metadata = {
-            name: file.name,
-            mimeType: file.type,
-            parents: [FOLDER_ID] // Enviar para a pasta específica
-        };
-
-        let formData = new FormData();
-        formData.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
-        formData.append("file", file);
-
-        // Faz o upload do arquivo para o Google Drive
-        const response = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+        const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
             method: "POST",
-            headers: {
-                "Authorization": "Bearer " + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
-            },
             body: formData
         });
 
         const data = await response.json();
-        if (!data.id) throw new Error("Falha no upload");
-
-        // **Torna o arquivo público**
-        await fetch(`https://www.googleapis.com/drive/v3/files/${data.id}/permissions`, {
-            method: "POST",
-            headers: {
-                "Authorization": "Bearer " + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ role: "reader", type: "anyone" }) // Permissão pública
-        });
-
-        // **Retorna o link público**
-        const fileUrl = `https://drive.google.com/uc?id=${data.id}`;
-        console.log("Upload concluído! Link público:", fileUrl);
-        return fileUrl;
-
+        if (data.success) {
+            console.log("Imagem enviada! Link:", data.data.url);
+            return data.data.url; // Retorna o link da imagem
+        } else {
+            throw new Error("Falha no upload");
+        }
     } catch (error) {
         console.error("Erro ao enviar imagem:", error);
         return null;
@@ -189,7 +143,7 @@ addEventButton.addEventListener("click", async () => {
 
     let imageUrl = "";
     if (imageFile) {
-        imageUrl = await uploadToGoogleDrive(imageFile);
+        imageUrl = await uploadToImgBB(imageFile);
         if (!imageUrl) {
             alert("Erro ao enviar a imagem.");
             return;
@@ -224,4 +178,3 @@ monthButtons.forEach(button => {
 });
 
 loadEvents(selectedMonth);
-
