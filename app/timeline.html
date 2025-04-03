@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linha do Tempo</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+
 </head>
 <body>
     <audio id="music-player" src="musicas/Allie X - That's So Us (Official Audio).mp3"></audio>
@@ -45,10 +48,17 @@
         <div class="add-event-form">
             <input type="date" id="event-date">
             <input type="text" id="event-description" placeholder="Digite um evento...">
+            <input type="file" id="event-image" accept="image/*">
             <button id="add-event-button">Adicionar Evento</button>
         </div>
     </div>
+    <div class="music-bar">
+        <button class="play-button">▶</button>
+        <span>Nome da música atual</span>
+    </div>
+    <button class="troca-msc-button">Trocar música</button>
 
-    <script src="timeline.js"></script>
+    <script src="script.js"></script>
+    <script type="module" src="timeline.js"></script>
 </body>
 </html>

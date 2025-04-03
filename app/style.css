@@ -554,6 +554,9 @@ textarea {
 }
 
 .troca-msc-button {
+    justify-content: center;
+    display: flex;
+    position: fixed;
     background-color: #E8AEB7;
     color: #C75D94;
     font-size: 24px;
@@ -596,7 +599,6 @@ textarea {
 }
 
 .troca-msc-button {
-    position: absolute;
     bottom: 40px;
     right: 40px;
     font-size: 24px;
