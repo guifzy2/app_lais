@@ -1,6 +1,9 @@
 // Importando módulos do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+    getFirestore, collection, addDoc, getDocs,
+    deleteDoc, doc, orderBy, query
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Configuração do Firebase
 const firebaseConfig = {
@@ -12,21 +15,34 @@ const firebaseConfig = {
     appId: "1:96310588542:web:b7ce83de88990570fd542f"
 };
 
-// Inicializa o Firebase e o Firestore
+// Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Selecionando elementos HTML
+// Seletores
 const salvarMencaoButton = document.getElementById("salvar-mencao");
 const limparMencoesButton = document.getElementById("limpar-mencoes");
 const comentarioInput = document.getElementById("comentario");
 const historicoMencoes = document.getElementById("historico-mencoes");
 
-// Carregar histórico ao iniciar
-document.addEventListener("DOMContentLoaded", carregarHistorico);
+let nomeSelecionado = null; // Nome ativo no momento
 
-// Salvar Menção no Firestore
-salvarMencaoButton.addEventListener("click", async function () {
+// Captura clique nos botões de nome
+document.querySelectorAll(".month-button").forEach(button => {
+    button.addEventListener("click", () => {
+        nomeSelecionado = button.dataset.nome;
+        document.getElementById("open-nomes-button").textContent = `Selecionado: ${nomeSelecionado} ⬇`;
+        carregarHistorico();
+    });
+});
+
+// Salvar menção
+salvarMencaoButton.addEventListener("click", async () => {
+    if (!nomeSelecionado) {
+        alert("Selecione um nome antes de salvar!");
+        return;
+    }
+
     const mencaoSelecionada = document.querySelector("input[name='mencao']:checked");
     if (!mencaoSelecionada) {
         alert("Escolha uma menção antes de salvar!");
@@ -38,14 +54,14 @@ salvarMencaoButton.addEventListener("click", async function () {
     const dataAtual = new Date().toLocaleDateString("pt-BR");
 
     try {
-        await addDoc(collection(db, "mencoes"), {
+        await addDoc(collection(db, `mencoes/${nomeSelecionado}/avaliacoes`), {
             data: dataAtual,
-            mencao: mencao,
-            comentario: comentario
+            mencao,
+            comentario
         });
 
         alert("Menção salva com sucesso!");
-        carregarHistorico();  // Atualiza a lista
+        carregarHistorico();
         comentarioInput.value = "";
         mencaoSelecionada.checked = false;
     } catch (error) {
@@ -53,12 +69,17 @@ salvarMencaoButton.addEventListener("click", async function () {
     }
 });
 
-// Função para carregar histórico de menções do Firestore
+// Carrega histórico
 async function carregarHistorico() {
     historicoMencoes.innerHTML = "";
 
+    if (!nomeSelecionado) return;
+
     try {
-        const querySnapshot = await getDocs(query(collection(db, "mencoes"), orderBy("data", "desc")));
+        const querySnapshot = await getDocs(query(
+            collection(db, `mencoes/${nomeSelecionado}/avaliacoes`),
+            orderBy("data", "desc")
+        ));
 
         querySnapshot.forEach((docSnapshot) => {
             const mencao = docSnapshot.data();
@@ -68,7 +89,9 @@ async function carregarHistorico() {
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Excluir";
             deleteButton.classList.add("delete-button");
-            deleteButton.addEventListener("click", () => excluirMencao(docSnapshot.id));
+            deleteButton.addEventListener("click", () =>
+                excluirMencao(docSnapshot.id)
+            );
 
             li.appendChild(deleteButton);
             historicoMencoes.appendChild(li);
@@ -78,11 +101,13 @@ async function carregarHistorico() {
     }
 }
 
-// Função para excluir uma menção específica
+// Excluir menção específica
 async function excluirMencao(id) {
+    if (!nomeSelecionado) return;
+
     if (confirm("Tem certeza que deseja excluir esta menção?")) {
         try {
-            await deleteDoc(doc(db, "mencoes", id));
+            await deleteDoc(doc(db, `mencoes/${nomeSelecionado}/avaliacoes`, id));
             carregarHistorico();
         } catch (error) {
             console.error("Erro ao excluir menção:", error);
@@ -90,19 +115,40 @@ async function excluirMencao(id) {
     }
 }
 
-// Função para limpar todas as menções
-limparMencoesButton.addEventListener("click", async function () {
+// Limpar todas as menções do nome atual
+limparMencoesButton.addEventListener("click", async () => {
+    if (!nomeSelecionado) {
+        alert("Selecione um nome para limpar as menções!");
+        return;
+    }
+
     if (confirm("Tem certeza que deseja apagar todas as menções?")) {
         try {
-            const querySnapshot = await getDocs(collection(db, "mencoes"));
+            const querySnapshot = await getDocs(
+                collection(db, `mencoes/${nomeSelecionado}/avaliacoes`)
+            );
 
             querySnapshot.forEach(async (docSnapshot) => {
-                await deleteDoc(doc(db, "mencoes", docSnapshot.id));
+                await deleteDoc(doc(db, `mencoes/${nomeSelecionado}/avaliacoes`, docSnapshot.id));
             });
 
             carregarHistorico();
         } catch (error) {
             console.error("Erro ao limpar menções:", error);
         }
+    }
+});
+
+// Alterna visibilidade do menu de nomes
+const openNomesButton = document.getElementById("open-nomes-button");
+const nomeDropdown = document.getElementById("nome-dropdown");
+
+openNomesButton.addEventListener("click", () => {
+    nomeDropdown.classList.toggle("hidden");
+});
+
+document.addEventListener("click", (event) => {
+    if (!nomeDropdown.contains(event.target) && event.target !== openNomesButton) {
+        nomeDropdown.classList.add("hidden");
     }
 });
