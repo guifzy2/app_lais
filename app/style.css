@@ -599,15 +599,16 @@ textarea {
     justify-content: center;
     display: flex;
     position: fixed;
+    font-family: 'Jersey 10', sans-serif;
     background-color: #E8AEB7;
     color: #C75D94;
-    font-size: 24px;
+    font-size: 40px;
     padding: 20px 40px;
     border: none;
     cursor: pointer;
     border-radius: 15px;
     width: 300px; /* Aumenta a largura dos botões */
-    height: 80px; /* Aumenta a altura dos botões */
+    height: 60px; /* Aumenta a altura dos botões */
     text-align: center;
 }
 
@@ -630,7 +631,7 @@ textarea {
     justify-content: flex-start; /* Alinha elementos horizontalmente */
     font-size: 24px;
     position: center;
-    padding: 120px;
+    padding: 80px;
     bottom: 10px;
     left: 60px;
     gap: 20px; /* Ajusta o espaçamento entre o botão e o texto */
@@ -657,7 +658,7 @@ textarea {
 .troca-msc-button {
     bottom: 40px;
     right: 40px;
-    font-size: 24px;
+    font-size: 30px;
     width: 250px;
     height: 80px;
 }
