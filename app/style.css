@@ -567,6 +567,23 @@ textarea {
     cursor: pointer;
 }
 
+.button_secret {
+    display: flex; /* Para alinhar o texto corretamente */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+    background-color: #ef8ca8;
+    color: #f6d6d6;
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 15px;
+    width: 200px; /* Garante que o tamanho seja igual ao botão original */
+    height: 40px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
 /* Transforma o <a> em bloco para ocupar o mesmo tamanho do botão */
 .button a {
     display: flex;
@@ -602,6 +619,20 @@ textarea {
     position: fixed;
     bottom: 40px;
     left: 40px;
+    gap: 20px; /* Ajusta o espaçamento entre o botão e o texto */
+    white-space: nowrap; /* Evita quebra de linha no texto */
+    flex-direction: row; /* Garante que os elementos fiquem lado a lado */
+}
+
+.audio-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha elementos horizontalmente */
+    font-size: 24px;
+    position: center;
+    padding: 120px;
+    bottom: 10px;
+    left: 60px;
     gap: 20px; /* Ajusta o espaçamento entre o botão e o texto */
     white-space: nowrap; /* Evita quebra de linha no texto */
     flex-direction: row; /* Garante que os elementos fiquem lado a lado */
