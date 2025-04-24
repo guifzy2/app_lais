@@ -34,55 +34,48 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// controlador de musicas
-document.addEventListener("DOMContentLoaded", function () {
-    const playButton = document.querySelector(".play-button");
-    const musicName = document.querySelector(".music-bar span");
-    const nextButton = document.querySelector(".troca-msc-button");
-    const musicPlayer = document.getElementById("music-player");
-
-    // Lista de músicas com seus nomes
-    const musicList = [
-        { name: "Allie X - That's So Us", file: "musicas/Allie X - That's So Us (Official Audio).mp3" },
-        { name: "Mac DeMarco - I Like Her", file: "musicas/20191009 I Like Her.mp3" }
-    ];
-
-    let currentMusicIndex = 0;
-    let isPlaying = false;
-
-    // Função para tocar música
-    function playMusic() {
-        if (!isPlaying) {
-            musicPlayer.play();
-            playButton.textContent = "⏸"; // Muda para pause
-            isPlaying = true;
-        } else {
-            musicPlayer.pause();
-            playButton.textContent = "▶"; // Volta para play
-            isPlaying = false;
-        }
+// Dados das músicas
+const musicas = [
+    {
+        nome: "Allie X - That's So Us",
+        src: "musicas/Allie X - That's So Us (Official Audio).mp3"
+    },
+    {
+        nome: "MacDemarco - I Like Her",
+        src: "musicas/20191009 I Like Her.mp3"
     }
+];
 
-    // Função para trocar de música
-    function nextMusic() {
-        currentMusicIndex = (currentMusicIndex + 1) % musicList.length;
-        musicPlayer.src = musicList[currentMusicIndex].file;
-        musicName.textContent = musicList[currentMusicIndex].name;
-        musicPlayer.play();
+let currentMusicIndex = 0;
+
+const audioPlayer = new Audio();
+audioPlayer.loop = true;
+audioPlayer.autoplay = false;
+audioPlayer.src = musicas[currentMusicIndex].src;
+
+const playButton = document.querySelector(".play-button");
+const musicNameDisplay = document.querySelector(".music-bar span");
+const trocaMusicaButton = document.querySelector(".troca-msc-button");
+
+musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
+
+// Play/Pause
+playButton.addEventListener("click", () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
         playButton.textContent = "⏸";
-        isPlaying = true;
+    } else {
+        audioPlayer.pause();
+        playButton.textContent = "▶";
     }
+});
 
-    // Garante que a música seja reproduzida novamente ao terminar
-    musicPlayer.addEventListener("ended", () => {
-        musicPlayer.play();
-    });
-
-    // Eventos de clique
-    playButton.addEventListener("click", playMusic);
-    nextButton.addEventListener("click", nextMusic);
-
-    // Inicia com a primeira música
-    musicName.textContent = musicList[currentMusicIndex].name;
+// Trocar música
+trocaMusicaButton.addEventListener("click", () => {
+    currentMusicIndex = (currentMusicIndex + 1) % musicas.length;
+    audioPlayer.src = musicas[currentMusicIndex].src;
+    musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
+    audioPlayer.play();
+    playButton.textContent = "⏸";
 });
 

@@ -662,3 +662,36 @@ textarea {
     width: 250px;
     height: 80px;
 }
+
+/*CSS DOS BOTÕES E PÁGINAS EXTRAS EXTRAS*/
+
+.botao-emergencia-central {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Fica sobre tudo */
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 2rem;
+    padding: 3rem 6rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 20px #ff4d6d;
+    animation: pulse 2s infinite;
+    transition: all 0.3s ease;
+}
+
+.botao-emergencia-central:hover {
+    background-color: #ff1e56;
+    box-shadow: 0 0 30px #ff1e56;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #ff4d6d; }
+    50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 60px #ff4d6d; }
+    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #ff4d6d; }
+}
+
