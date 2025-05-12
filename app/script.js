@@ -43,6 +43,10 @@ const musicas = [
     {
         nome: "MacDemarco - I Like Her",
         src: "musicas/20191009 I Like Her.mp3"
+    },
+    {
+        nome: "Ariana Grande - The Way ft. Mac Miller",
+        src: "musicas/Ariana Grande - The Way ft. Mac Miller.mp3"
     }
 ];
 
