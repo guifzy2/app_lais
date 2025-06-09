@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lista de imagens de folhas/flores
     const leafImages = [
-        "img/rosa.png",
-        "img/folha.png",
+        "img/coracao_vermelho.png",
+        "img/valentines-day.png",
+        "img/coracao_pixel.webp"
     ];
 
     function createLeaf() {
@@ -34,8 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// Dados das músicas
+// Dados das músicas 
 const musicas = [
+    {
+        nome: "Mac Miller - My Favorite Part ft. Ariana Grande",
+        src: "musicas/Mac Miller - My Favorite Part (feat. Ariana Grande).mp3"
+    },
+    {
+        nome: "Wallows – You (Show Me Where My Days Went)",
+        src: "musicas/Wallows – You (Show Me Where My Days Went).mp3"
+    },
     {
         nome: "Allie X - That's So Us",
         src: "musicas/Allie X - That's So Us (Official Audio).mp3"
@@ -51,15 +60,15 @@ const musicas = [
 ];
 
 let currentMusicIndex = 0;
-
 const audioPlayer = new Audio();
 audioPlayer.loop = true;
-audioPlayer.autoplay = false;
+audioPlayer.autoplay = false; 
 audioPlayer.src = musicas[currentMusicIndex].src;
 
 const playButton = document.querySelector(".play-button");
 const musicNameDisplay = document.querySelector(".music-bar span");
 const trocaMusicaButton = document.querySelector(".troca-msc-button");
+const trocaMusicaAleatoriaButton = document.querySelector(".troca-msc-aleatoria-button");
 
 musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
 
@@ -74,7 +83,33 @@ playButton.addEventListener("click", () => {
     }
 });
 
-// Trocar música
+// Declarar histórico fora da função para manter entre cliques
+let historico = [];
+
+trocaMusicaAleatoriaButton.addEventListener("click", () => {
+    let randomIndex;
+
+    // Gera um índice aleatório diferente do atual e não repetido no histórico
+    do {
+        randomIndex = Math.floor(Math.random() * musicas.length);
+    } while ((randomIndex === currentMusicIndex || historico.includes(randomIndex)) && musicas.length > 1);
+
+    // Atualiza o histórico
+    historico.push(randomIndex);
+    if (historico.length > 3) {
+        historico.shift(); // remove o mais antigo
+    }
+
+    // Troca a música
+    audioPlayer.src = musicas[randomIndex].src;
+    musicNameDisplay.textContent = musicas[randomIndex].nome;
+    currentMusicIndex = randomIndex;
+
+    audioPlayer.play();
+    playButton.textContent = "⏸";
+});
+
+// Trocar música em sequencia
 trocaMusicaButton.addEventListener("click", () => {
     currentMusicIndex = (currentMusicIndex + 1) % musicas.length;
     audioPlayer.src = musicas[currentMusicIndex].src;

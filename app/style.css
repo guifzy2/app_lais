@@ -567,6 +567,11 @@ textarea {
     cursor: pointer;
 }
 
+.button:hover {
+    background-color: #D88A9C; /* Cor mais escura ao passar o mouse */
+    color: white; /* Muda a cor do texto para branco */
+}
+
 .button_secret {
     display: flex; /* Para alinhar o texto corretamente */
     align-items: center;
@@ -596,20 +601,55 @@ textarea {
 }
 
 .troca-msc-button {
-    justify-content: center;
-    display: flex;
     position: fixed;
-    font-family: 'Jersey 10', sans-serif;
+    bottom: 40px;
+    right: 150px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
     background-color: #E8AEB7;
     color: #C75D94;
-    font-size: 40px;
-    padding: 20px 40px;
+    font-size: 24px;
+    padding: 20px;
     border: none;
     cursor: pointer;
-    border-radius: 15px;
-    width: 300px; /* Aumenta a largura dos botões */
-    height: 60px; /* Aumenta a altura dos botões */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jersey 10', sans-serif;
+    flex-shrink: 0;
     text-align: center;
+}
+
+.troca-msc-button:hover {
+    background-color: #D88A9C; /* Cor mais escura ao passar o mouse */
+    color: white; /* Muda a cor do texto para branco */
+}
+
+.troca-msc-aleatoria-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #E8AEB7;
+    color: #C75D94;
+    font-size: 24px;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jersey 10', sans-serif;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.troca-msc-aleatoria-button:hover {
+    background-color: #D88A9C; /* Cor mais escura ao passar o mouse */
+    color: white; /* Muda a cor do texto para branco */
 }
 
 .music-bar {
@@ -655,12 +695,9 @@ textarea {
     justify-content: center;
 }
 
-.troca-msc-button {
-    bottom: 40px;
-    right: 40px;
-    font-size: 30px;
-    width: 250px;
-    height: 80px;
+.play-button:hover {
+    background-color: #D88A9C; /* Cor mais escura ao passar o mouse */
+    color: white; /* Muda a cor do texto para branco */
 }
 
 /*CSS DOS BOTÕES E PÁGINAS EXTRAS EXTRAS*/
