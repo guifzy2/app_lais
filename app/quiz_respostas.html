@@ -1,0 +1,98 @@
+<!-- resultado.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="paginaResultado" class="container">
+    <h1 id="mensagemResultado"></h1>
+    <h4 id="mensagemExtra"></h4>
+
+    <img src="img/rosa_na_boca.jpeg" alt="Coração" class="memory-photo">
+    
+    <h1>Quer passar o Dia dos Namorados comigo? ❤</h1>
+    <div class="button-container">
+      <button id="simBtn" class="button">Sim</button>
+      <button id="naoBtn" class="button">Não</button>
+    </div>
+
+    <div id="campoTexto" style="display:none;">
+      <p>Informações Improtantes:</p>
+    </div>
+  </div>
+
+  <div class="music-bar">
+      <button class="play-button">▶</button> <!-- lembrar de trocar apos dia dos namorados -->
+      <span>Nome da música atual</span>
+  </div>
+  <button class="troca-msc-button">▶▶</button>
+  <button class="troca-msc-aleatoria-button">⇄</button>
+
+
+  <div class="button-container">
+    <div class="button-column left">
+        <a href="index.html" class="button">Início</a>
+    </div>
+  </div>
+
+  <!-- Importando o script para animação das folhas -->
+  <script src="script.js"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const acertos = parseInt(urlParams.get("acertos"), 10);
+
+    const mensagemResultado = document.getElementById("mensagemResultado");
+    const mensagemExtra = document.getElementById("mensagemExtra");
+
+    if (acertos > 3) {
+      mensagemResultado.textContent = "✅ Muito bem, princesa!";
+    } else {
+      mensagemResultado.textContent = "❌ Não foi dessa vez, amor 😞";
+      mensagemExtra.textContent = "Mas como você é muito linda, vai passar mesmo assim kk";
+    }
+
+    let scale = 1;
+    let clicouSim = false;
+
+    const simBtn = document.getElementById("simBtn");
+    const naoBtn = document.getElementById("naoBtn");
+    const campoTexto = document.getElementById("campoTexto");
+
+    simBtn.onclick = () => {
+      clicouSim = true;
+      campoTexto.style.display = "block";
+      campoTexto.innerHTML = `
+        <p><strong>Informações importantes:</strong></p>
+        <ul>
+          <li><strong>Data:</strong> 13 de Junho</li>
+          <li><strong>Horário na sua casa:</strong> 18h00</li>
+          <li><strong>Horário da reserva:</strong> 19h30</li>
+          <li><strong>Local:</strong> Segredo 🤫</li>
+          <li><strong>Traje:</strong> Linda como sempre ❤</li>
+          <li><strong>Atividade:</strong> Surpresa fofa + Jantar romântico + Um final de noite quente 😈</li>
+        </ul>
+      `;
+
+      document.getElementById("mensagemResultado").style.display = "none";
+      document.getElementById("mensagemExtra").style.display = "none";
+      document.querySelector("#paginaResultado h1:nth-of-type(2)").style.display = "none";
+
+      simBtn.style.transform = `scale(1)`;
+      naoBtn.innerText = "Já apertou sim, agora já era ";
+      naoBtn.disabled = true;
+    };
+
+    naoBtn.onclick = () => {
+      if (!clicouSim) {
+        scale += 0.1;
+        simBtn.style.transform = `scale(${scale})`;
+      }
+    };
+</script>
+
+</body>
+</html>

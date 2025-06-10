@@ -62,7 +62,7 @@ const musicas = [
 let currentMusicIndex = 0;
 const audioPlayer = new Audio();
 audioPlayer.loop = true;
-audioPlayer.autoplay = false; 
+audioPlayer.autoplay = true; 
 audioPlayer.src = musicas[currentMusicIndex].src;
 
 const playButton = document.querySelector(".play-button");

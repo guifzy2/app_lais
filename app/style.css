@@ -64,7 +64,7 @@ body {
 
 .memory-photo {
     width: 80%;
-    max-width: 500px; /* Garante um tamanho adequado */
+    max-width: 250px; /* Garante um tamanho adequado */
     border-radius: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -539,32 +539,34 @@ textarea {
     display: flex;
     justify-content: center;
     padding: 15px;
-    gap: 50px;
+    gap: 40px;
     width: 80%; /* Ajusta para preencher mais a tela */
     max-width: 1200px; /* Garante um limite para telas grandes */
+    margin: 0 auto; /* Centraliza o contêiner */
 }
 
 .button-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
 }
 
 .button {
-    display: flex; /* Para alinhar o texto corretamente */
-    align-items: center;
-    justify-content: center;
-    text-decoration: none; /* Remove o sublinhado padrão do link */
-    background-color: #E8AEB7;
-    color: #C75D94;
-    font-size: 24px;
-    padding: 20px 40px;
-    border-radius: 15px;
-    width: 200px; /* Garante que o tamanho seja igual ao botão original */
-    height: 40px;
-    text-align: center;
-    border: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f48fb1;
+  color:  #C75D94;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 160px;
+  min-height: 50px;
 }
 
 .button:hover {
@@ -573,20 +575,26 @@ textarea {
 }
 
 .button_secret {
-    display: flex; /* Para alinhar o texto corretamente */
+    display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none; /* Remove o sublinhado padrão do link */
-    background-color: #ef8ca8;
+    background-color: #e45e84;;
     color: #f6d6d6;
     font-size: 24px;
-    padding: 20px 40px;
-    border-radius: 15px;
-    width: 200px; /* Garante que o tamanho seja igual ao botão original */
-    height: 40px;
-    text-align: center;
+    font-weight: bold;
+    padding: 14px 28px;
     border: none;
+    border-radius: 30px;
+    text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 160px;
+    min-height: 50px;
+}
+
+.button_secret:hover {
+    background-color: #dd3951; /* Cor mais escura ao passar o mouse */
+    color: white; /* Muda a cor do texto para branco */
 }
 
 /* Transforma o <a> em bloco para ocupar o mesmo tamanho do botão */
@@ -730,5 +738,69 @@ textarea {
     0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #ff4d6d; }
     50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 60px #ff4d6d; }
     100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #ff4d6d; }
+}
+
+/*CSS DO QUIZ*/
+
+/* Quiz de Dia dos Namorados */
+.quiz-container {
+  width: 80%;
+  max-width: 600px;
+  background: #FFF;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin: 20px auto;
+  text-align: left;
+}
+.quiz-container .question {
+  margin-bottom: 15px;
+}
+.quiz-container label {
+  display: block;
+  font-size: 20px;
+  color: #C75D94;
+  margin: 5px 0;
+  cursor: pointer;
+}
+.quiz-container button.button {
+  display: block;
+  margin: 20px auto;
+}
+#convite img.memory-photo {
+  display: block;
+  margin: 15px auto;
+  width: 50%;
+  max-width: 200px;
+  border-radius: 15px;
+}
+#convite button.button {
+  margin: 10px;
+}
+#convite textarea {
+  width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #E8AEB7;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+ul li::before {
+  content: "• ";
+  color: red; /* Ou qualquer cor desejada */
+}
+
+ul li {
+  margin-bottom: 20px;
+  margin-left: 120px;
+  line-height: 1.0;
 }
 
