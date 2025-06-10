@@ -42,8 +42,8 @@ const musicas = [
         src: "musicas/Mac Miller - My Favorite Part (feat. Ariana Grande).mp3"
     },
     {
-        nome: "Wallows – You (Show Me Where My Days Went)",
-        src: "musicas/Wallows – You (Show Me Where My Days Went).mp3"
+        nome: "Wallows - You (Show Me Where My Days Went)",
+        src: "musicas/Wallows - You (Show Me Where My Days Went).mp3"
     },
     {
         nome: "Allie X - That's So Us",
@@ -61,9 +61,18 @@ const musicas = [
 
 let currentMusicIndex = 0;
 const audioPlayer = new Audio();
-audioPlayer.loop = true;
+audioPlayer.loop = false;
 audioPlayer.autoplay = true; 
 audioPlayer.src = musicas[currentMusicIndex].src;
+
+// ao acabar a música, troca para a próxima
+audioPlayer.addEventListener("ended", () => {
+    currentMusicIndex = (currentMusicIndex + 1) % musicas.length;
+    audioPlayer.src = musicas[currentMusicIndex].src;
+    musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
+    playButton.textContent = "⏸"
+    audioPlayer.play();
+});
 
 const playButton = document.querySelector(".play-button");
 const musicNameDisplay = document.querySelector(".music-bar span");
@@ -71,6 +80,7 @@ const trocaMusicaButton = document.querySelector(".troca-msc-button");
 const trocaMusicaAleatoriaButton = document.querySelector(".troca-msc-aleatoria-button");
 
 musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
+playButton.textContent = "⏸"
 
 // Play/Pause
 playButton.addEventListener("click", () => {
