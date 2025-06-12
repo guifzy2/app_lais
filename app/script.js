@@ -80,7 +80,6 @@ const trocaMusicaButton = document.querySelector(".troca-msc-button");
 const trocaMusicaAleatoriaButton = document.querySelector(".troca-msc-aleatoria-button");
 
 musicNameDisplay.textContent = musicas[currentMusicIndex].nome;
-playButton.textContent = "⏸"
 
 // Play/Pause
 playButton.addEventListener("click", () => {
