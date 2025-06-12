@@ -62,7 +62,7 @@ const musicas = [
 let currentMusicIndex = 0;
 const audioPlayer = new Audio();
 audioPlayer.loop = false;
-audioPlayer.autoplay = true; 
+audioPlayer.autoplay = false; 
 audioPlayer.src = musicas[currentMusicIndex].src;
 
 // ao acabar a música, troca para a próxima
