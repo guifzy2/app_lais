@@ -4,9 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lista de imagens de folhas/flores
     const leafImages = [
-        "img/coracao_vermelho.png",
-        "img/valentines-day.png",
-        "img/coracao_pixel.webp"
+        "img/rosa.png",
+        "img/folha.png"
     ];
 
     function createLeaf() {
